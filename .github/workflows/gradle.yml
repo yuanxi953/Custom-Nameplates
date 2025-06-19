@@ -37,6 +37,8 @@ jobs:
       run: | 
           chmod +x ./gradlew
           ./gradlew build
+          mkdir -p ${{ github.workspace }}/artifacts 
+          mv target/*.jar ${{ github.workspace }}/artifacts/
 
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
     # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
@@ -48,6 +50,15 @@ jobs:
     #
     # - name: Build with Gradle 8.9
     #   run: gradle build
+
+    - uses: "marvinpinto/action-automatic-releases@latest"  
+      with:  
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"  
+        # automatic_release_tag: "${{ env.RELEASE_VERSION }}"  
+        prerelease: false  
+        title: "Release"  
+        files: |  
+          ${{ github.workspace }}/artifacts/*.jar
 
   dependency-submission:
 
