@@ -45,10 +45,10 @@ jobs:
         mv target/*.jar ${{ github.workspace }}/artifacts/ 
 
     - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Custom-Nameplates
-          path: target/*
+      uses: actions/upload-artifact@v4
+      with:
+        name: Custom-Nameplates
+        path: target/*
 
     - name: DONE!!! 
       run: echo "done"
